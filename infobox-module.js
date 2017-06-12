@@ -122,15 +122,16 @@ function InfoBox(opt_opts) {
   this.fixedWidthSet_ = null;
 }
 
-/* InfoBox extends OverlayView in the Google Maps API v3.
- */
-InfoBox.prototype = new google.maps.OverlayView();
+function InfoBoxPrototype() {
+  /* InfoBox extends OverlayView in the Google Maps API v3.
+  */
+  InfoBox.prototype = new google.maps.OverlayView();
 
-/**
- * Creates the DIV representing the InfoBox.
- * @private
- */
-InfoBox.prototype.createInfoBoxDiv_ = function () {
+  /**
+  * Creates the DIV representing the InfoBox.
+  * @private
+  */
+  InfoBox.prototype.createInfoBoxDiv_ = function () {
 
   var i;
   var events;
@@ -218,7 +219,7 @@ InfoBox.prototype.createInfoBoxDiv_ = function () {
 
         this.eventListeners_.push(google.maps.event.addDomListener(this.div_, events[i], cancelHandler));
       }
-      
+
       // Workaround for Google bug that causes the cursor to change to a pointer
       // when the mouse moves over a marker underneath InfoBox.
       this.eventListeners_.push(google.maps.event.addDomListener(this.div_, "mouseover", function (e) {
@@ -235,13 +236,13 @@ InfoBox.prototype.createInfoBoxDiv_ = function () {
      */
     google.maps.event.trigger(this, "domready");
   }
-};
+  };
 
-/**
- * Returns the HTML <IMG> tag for the close box.
- * @private
- */
-InfoBox.prototype.getCloseBoxImg_ = function () {
+  /**
+  * Returns the HTML <IMG> tag for the close box.
+  * @private
+  */
+  InfoBox.prototype.getCloseBoxImg_ = function () {
 
   var img = "";
 
@@ -258,13 +259,13 @@ InfoBox.prototype.getCloseBoxImg_ = function () {
   }
 
   return img;
-};
+  };
 
-/**
- * Adds the click handler to the InfoBox close box.
- * @private
- */
-InfoBox.prototype.addClickHandler_ = function () {
+  /**
+  * Adds the click handler to the InfoBox close box.
+  * @private
+  */
+  InfoBox.prototype.addClickHandler_ = function () {
 
   var closeBox;
 
@@ -277,13 +278,13 @@ InfoBox.prototype.addClickHandler_ = function () {
 
     this.closeListener_ = null;
   }
-};
+  };
 
-/**
- * Returns the function to call when the user clicks the close box of an InfoBox.
- * @private
- */
-InfoBox.prototype.getCloseClickHandler_ = function () {
+  /**
+  * Returns the function to call when the user clicks the close box of an InfoBox.
+  * @private
+  */
+  InfoBox.prototype.getCloseClickHandler_ = function () {
 
   var me = this;
 
@@ -306,13 +307,13 @@ InfoBox.prototype.getCloseClickHandler_ = function () {
 
     me.close();
   };
-};
+  };
 
-/**
- * Pans the map so that the InfoBox appears entirely within the map's visible area.
- * @private
- */
-InfoBox.prototype.panBox_ = function (disablePan) {
+  /**
+  * Pans the map so that the InfoBox appears entirely within the map's visible area.
+  * @private
+  */
+  InfoBox.prototype.panBox_ = function (disablePan) {
 
   var map;
   var bounds;
@@ -371,14 +372,14 @@ InfoBox.prototype.panBox_ = function (disablePan) {
       }
     }
   }
-};
+  };
 
-/**
- * Sets the style of the InfoBox by setting the style sheet and applying
- * other specific styles requested.
- * @private
- */
-InfoBox.prototype.setBoxStyle_ = function () {
+  /**
+  * Sets the style of the InfoBox by setting the style sheet and applying
+  * other specific styles requested.
+  * @private
+  */
+  InfoBox.prototype.setBoxStyle_ = function () {
 
   var i, boxStyle;
 
@@ -424,14 +425,14 @@ InfoBox.prototype.setBoxStyle_ = function () {
       this.div_.style.overflow = "auto";
     }
   }
-};
+  };
 
-/**
- * Get the widths of the borders of the InfoBox.
- * @private
- * @return {Object} widths object (top, bottom left, right)
- */
-InfoBox.prototype.getBoxWidths_ = function () {
+  /**
+  * Get the widths of the borders of the InfoBox.
+  * @private
+  * @return {Object} widths object (top, bottom left, right)
+  */
+  InfoBox.prototype.getBoxWidths_ = function () {
 
   var computedStyle;
   var bw = {top: 0, bottom: 0, left: 0, right: 0};
@@ -463,31 +464,31 @@ InfoBox.prototype.getBoxWidths_ = function () {
   }
 
   return bw;
-};
+  };
 
-/**
- * Invoked when <tt>close</tt> is called. Do not call it directly.
- */
-InfoBox.prototype.onRemove = function () {
+  /**
+  * Invoked when <tt>close</tt> is called. Do not call it directly.
+  */
+  InfoBox.prototype.onRemove = function () {
 
   if (this.div_) {
 
     this.div_.parentNode.removeChild(this.div_);
     this.div_ = null;
   }
-};
+  };
 
-/**
- * Draws the InfoBox based on the current map projection and zoom level.
- */
-InfoBox.prototype.draw = function () {
+  /**
+  * Draws the InfoBox based on the current map projection and zoom level.
+  */
+  InfoBox.prototype.draw = function () {
 
   this.createInfoBoxDiv_();
 
   var pixPosition = this.getProjection().fromLatLngToDivPixel(this.position_);
 
   this.div_.style.left = (pixPosition.x + this.pixelOffset_.width) + "px";
-  
+
   if (this.alignBottom_) {
     this.div_.style.bottom = -(pixPosition.y + this.pixelOffset_.height) + "px";
   } else {
@@ -502,16 +503,16 @@ InfoBox.prototype.draw = function () {
 
     this.div_.style.visibility = "visible";
   }
-};
+  };
 
-/**
- * Sets the options for the InfoBox. Note that changes to the <tt>maxWidth</tt>,
- *  <tt>closeBoxMargin</tt>, <tt>closeBoxURL</tt>, and <tt>enableEventPropagation</tt>
- *  properties have no affect until the current InfoBox is <tt>close</tt>d and a new one
- *  is <tt>open</tt>ed.
- * @param {InfoBoxOptions} opt_opts
- */
-InfoBox.prototype.setOptions = function (opt_opts) {
+  /**
+  * Sets the options for the InfoBox. Note that changes to the <tt>maxWidth</tt>,
+  *  <tt>closeBoxMargin</tt>, <tt>closeBoxURL</tt>, and <tt>enableEventPropagation</tt>
+  *  properties have no affect until the current InfoBox is <tt>close</tt>d and a new one
+  *  is <tt>open</tt>ed.
+  * @param {InfoBoxOptions} opt_opts
+  */
+  InfoBox.prototype.setOptions = function (opt_opts) {
   if (typeof opt_opts.boxClass !== "undefined") { // Must be first
 
     this.boxClass_ = opt_opts.boxClass;
@@ -579,14 +580,14 @@ InfoBox.prototype.setOptions = function (opt_opts) {
 
     this.draw();
   }
-};
+  };
 
-/**
- * Sets the content of the InfoBox.
- *  The content can be plain text or an HTML DOM node.
- * @param {string|Node} content
- */
-InfoBox.prototype.setContent = function (content) {
+  /**
+  * Sets the content of the InfoBox.
+  *  The content can be plain text or an HTML DOM node.
+  * @param {string|Node} content
+  */
+  InfoBox.prototype.setContent = function (content) {
   this.content_ = content;
 
   if (this.div_) {
@@ -633,13 +634,13 @@ InfoBox.prototype.setContent = function (content) {
    * @event
    */
   google.maps.event.trigger(this, "content_changed");
-};
+  };
 
-/**
- * Sets the geographic location of the InfoBox.
- * @param {LatLng} latlng
- */
-InfoBox.prototype.setPosition = function (latlng) {
+  /**
+  * Sets the geographic location of the InfoBox.
+  * @param {LatLng} latlng
+  */
+  InfoBox.prototype.setPosition = function (latlng) {
 
   this.position_ = latlng;
 
@@ -654,13 +655,13 @@ InfoBox.prototype.setPosition = function (latlng) {
    * @event
    */
   google.maps.event.trigger(this, "position_changed");
-};
+  };
 
-/**
- * Sets the zIndex style for the InfoBox.
- * @param {number} index
- */
-InfoBox.prototype.setZIndex = function (index) {
+  /**
+  * Sets the zIndex style for the InfoBox.
+  * @param {number} index
+  */
+  InfoBox.prototype.setZIndex = function (index) {
 
   this.zIndex_ = index;
 
@@ -675,52 +676,52 @@ InfoBox.prototype.setZIndex = function (index) {
    * @event
    */
   google.maps.event.trigger(this, "zindex_changed");
-};
+  };
 
-/**
- * Sets the visibility of the InfoBox.
- * @param {boolean} isVisible
- */
-InfoBox.prototype.setVisible = function (isVisible) {
+  /**
+  * Sets the visibility of the InfoBox.
+  * @param {boolean} isVisible
+  */
+  InfoBox.prototype.setVisible = function (isVisible) {
 
   this.isHidden_ = !isVisible;
   if (this.div_) {
     this.div_.style.visibility = (this.isHidden_ ? "hidden" : "visible");
   }
-};
+  };
 
-/**
- * Returns the content of the InfoBox.
- * @returns {string}
- */
-InfoBox.prototype.getContent = function () {
+  /**
+  * Returns the content of the InfoBox.
+  * @returns {string}
+  */
+  InfoBox.prototype.getContent = function () {
 
   return this.content_;
-};
+  };
 
-/**
- * Returns the geographic location of the InfoBox.
- * @returns {LatLng}
- */
-InfoBox.prototype.getPosition = function () {
+  /**
+  * Returns the geographic location of the InfoBox.
+  * @returns {LatLng}
+  */
+  InfoBox.prototype.getPosition = function () {
 
   return this.position_;
-};
+  };
 
-/**
- * Returns the zIndex for the InfoBox.
- * @returns {number}
- */
-InfoBox.prototype.getZIndex = function () {
+  /**
+  * Returns the zIndex for the InfoBox.
+  * @returns {number}
+  */
+  InfoBox.prototype.getZIndex = function () {
 
   return this.zIndex_;
-};
+  };
 
-/**
- * Returns a flag indicating whether the InfoBox is visible.
- * @returns {boolean}
- */
-InfoBox.prototype.getVisible = function () {
+  /**
+  * Returns a flag indicating whether the InfoBox is visible.
+  * @returns {boolean}
+  */
+  InfoBox.prototype.getVisible = function () {
 
   var isVisible;
 
@@ -730,39 +731,39 @@ InfoBox.prototype.getVisible = function () {
     isVisible = !this.isHidden_;
   }
   return isVisible;
-};
+  };
 
-/**
- * Shows the InfoBox. [Deprecated; use <tt>setVisible</tt> instead.]
- */
-InfoBox.prototype.show = function () {
+  /**
+  * Shows the InfoBox. [Deprecated; use <tt>setVisible</tt> instead.]
+  */
+  InfoBox.prototype.show = function () {
 
   this.isHidden_ = false;
   if (this.div_) {
     this.div_.style.visibility = "visible";
   }
-};
+  };
 
-/**
- * Hides the InfoBox. [Deprecated; use <tt>setVisible</tt> instead.]
- */
-InfoBox.prototype.hide = function () {
+  /**
+  * Hides the InfoBox. [Deprecated; use <tt>setVisible</tt> instead.]
+  */
+  InfoBox.prototype.hide = function () {
 
   this.isHidden_ = true;
   if (this.div_) {
     this.div_.style.visibility = "hidden";
   }
-};
+  };
 
-/**
- * Adds the InfoBox to the specified map or Street View panorama. If <tt>anchor</tt>
- *  (usually a <tt>google.maps.Marker</tt>) is specified, the position
- *  of the InfoBox is set to the position of the <tt>anchor</tt>. If the
- *  anchor is dragged to a new location, the InfoBox moves as well.
- * @param {Map|StreetViewPanorama} map
- * @param {MVCObject} [anchor]
- */
-InfoBox.prototype.open = function (map, anchor) {
+  /**
+  * Adds the InfoBox to the specified map or Street View panorama. If <tt>anchor</tt>
+  *  (usually a <tt>google.maps.Marker</tt>) is specified, the position
+  *  of the InfoBox is set to the position of the <tt>anchor</tt>. If the
+  *  anchor is dragged to a new location, the InfoBox moves as well.
+  * @param {Map|StreetViewPanorama} map
+  * @param {MVCObject} [anchor]
+  */
+  InfoBox.prototype.open = function (map, anchor) {
 
   var me = this;
 
@@ -775,7 +776,7 @@ InfoBox.prototype.open = function (map, anchor) {
 
     this.mapListener_ = google.maps.event.addListener(anchor, "map_changed", function() {
       me.setMap(this.map);
-    });    
+    });
   }
 
   this.setMap(map);
@@ -784,12 +785,12 @@ InfoBox.prototype.open = function (map, anchor) {
 
     this.panBox_();
   }
-};
+  };
 
-/**
- * Removes the InfoBox from the map.
- */
-InfoBox.prototype.close = function () {
+  /**
+  * Removes the InfoBox from the map.
+  */
+  InfoBox.prototype.close = function () {
 
   var i;
 
@@ -800,7 +801,7 @@ InfoBox.prototype.close = function () {
   }
 
   if (this.eventListeners_) {
-    
+
     for (i = 0; i < this.eventListeners_.length; i++) {
 
       google.maps.event.removeListener(this.eventListeners_[i]);
@@ -815,11 +816,11 @@ InfoBox.prototype.close = function () {
   }
 
   if (this.mapListener_) {
-    
+
     google.maps.event.removeListener(this.mapListener_);
-    this.mapListener_ = null;    
+    this.mapListener_ = null;
   }
- 
+
   if (this.contextListener_) {
 
     google.maps.event.removeListener(this.contextListener_);
@@ -827,7 +828,7 @@ InfoBox.prototype.close = function () {
   }
 
   this.setMap(null);
-};
+  };
+}
 
-
-module.exports = InfoBox;
+module.exports = { InfoBox, InfoBoxPrototype };
