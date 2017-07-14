@@ -831,4 +831,4 @@ function InfoBoxPrototype() {
   };
 }
 
-module.exports = { InfoBox, InfoBoxPrototype };
+module.exports = { InfoBox: InfoBox, InfoBoxPrototype: InfoBoxPrototype };
